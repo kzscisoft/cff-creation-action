@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import toml
 import argparse
 import os
@@ -13,6 +14,7 @@ julia_info_parser.add_argument('--cff-version', default='1.1.0')
 julia_info_parser.add_argument('--title', default=None)
 julia_info_parser.add_argument('--message', default=None)
 julia_info_parser.add_argument('--authors', default=None)
+julia_info_parser.add_argument('--affiliation', default=None)
 
 args = julia_info_parser.parse_args()
 
@@ -62,6 +64,8 @@ if author_strs:
                 'given-names': author[0].split(' ')
             }
         )
+        if args.affiliation:
+            authors[-1]['affiliation'] = args.affiliation
         output_cff_dat['authors'] = authors
 
 output_cff_dat['date-released'] = time.strftime('%Y-%m-%d', current_time)
