@@ -9,6 +9,7 @@ RUN apt install -y python3 python3-pip
 RUN apt install -y wget curl
 
 RUN R -e "install.packages('yaml',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('desc',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN python3 -m pip install pyyaml toml
 
 COPY language_scripts/license_rec.py /usr/bin/get-license

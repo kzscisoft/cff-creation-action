@@ -3,6 +3,7 @@ import argparse
 import os
 import re
 import yaml
+import time
 
 DEFAULT_MSG = 'If you use this software, please cite it using these metadata.'
 
@@ -16,6 +17,10 @@ julia_info_parser.add_argument('--authors', default=None)
 args = julia_info_parser.parse_args()
 
 output_cff_dat = {}
+
+current_time = time.localtime()
+
+author_strs = None
 
 if not args.title or not args.version:
     if not os.path.exists(args.project_toml):
@@ -42,23 +47,27 @@ if not args.title or not args.version:
 if args.authors:
     author_strs = args.authors.split(',')
 
-authors = []
+    authors = []
 
-for author_str in author_strs:
-    if re.findall(r'<(.+)>', author_str):
-        email = re.findall(r'<(.+)>', author_str)[0].strip()
-        author = author_str.split('<')[0].strip().split(' ', -1)
-    else:
-        author = author_str.strip().split(' ', -1)
-    authors.append(
-        {
-            'family-names': author[1],
-            'given-names': author[0].split(' ')
-        }
-    )
+if author_strs:
+    for author_str in author_strs:
+        if re.findall(r'<(.+)>', author_str):
+            email = re.findall(r'<(.+)>', author_str)[0].strip()
+            author = author_str.split('<')[0].strip().split(' ', -1)
+        else:
+            author = author_str.strip().split(' ', -1)
+        authors.append(
+            {
+                'family-names': author[1],
+                'given-names': author[0].split(' ')
+            }
+        )
+        output_cff_dat['authors'] = authors
 
-if authors:
-    output_cff_dat['authors'] = authors
+output_cff_dat['date-released'] = time.strftime('%Y-%m-%d', current_time)
 output_cff_dat['message'] = args.message if args.message else DEFAULT_MSG
 output_cff_dat['cff-version'] = args.cff_version
 output_cff_dat['title']
+
+with open('CITATION.cff', 'w') as f:
+    yaml.dump(output_cff_dat, f)
