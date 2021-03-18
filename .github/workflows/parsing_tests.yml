@@ -25,5 +25,5 @@ jobs:
         run: pytest -s
       - uses: kzscisoft/cff-creation-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           project-path: tests
