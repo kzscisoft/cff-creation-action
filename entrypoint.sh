@@ -26,27 +26,27 @@ fi
 
 if [ -n "${INPUT_DOI}" ]
 then
-    ARGUMENTS="${ARGUMENTS} --doi ${INPUT_DOI}"
+    ARGUMENTS="${ARGUMENTS} --doi \"${INPUT_DOI}\""
 fi
 
 if [ -n "${INPUT_TITLE}" ]
 then
-    ARGUMENTS="${ARGUMENTS} --title ${INPUT_TITLE}"
+    ARGUMENTS="${ARGUMENTS} --title \"${INPUT_TITLE}\""
 fi
 
 if [ -n "${INPUT_MESSAGE}" ]
 then
-    ARGUMENTS="${ARGUMENTS} --message ${INPUT_MESSAGE}"
+    ARGUMENTS="${ARGUMENTS} --message \"${INPUT_MESSAGE}\""
 fi
 
 if [ -n "${INPUT_AUTHORS}" ]
 then
-    ARGUMENTS="${ARGUMENTS} --authors ${INPUT_AUTHORS}"
+    ARGUMENTS="${ARGUMENTS} --authors \"${INPUT_AUTHORS}\""
 fi
 
 if [ -n "${INPUT_AFFILIATION}" ]
 then
-    ARGUMENTS="${ARGUMENTS} --affiliation ${INPUT_AFFILIATION}"
+    ARGUMENTS="${ARGUMENTS} --affiliation \"${INPUT_AFFILIATION}\""
 fi
 
 echo "Running command: gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}"
