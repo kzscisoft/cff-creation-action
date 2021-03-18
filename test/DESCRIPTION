@@ -1,0 +1,24 @@
+Package: TestRModule
+Title: Dummy R module for CFF Generation testing
+Version: 1.0.0
+Authors@R: c(person("John", "Smith", email = "john.smith@nowhere.com",
+                  role = c("cre", "aut"), comment = c(ORCID = "0000-0000-0000-0000")),
+             person("Jane", "Doe", role = "ctb", 
+                  comment = c(ORCID = "0000-0000-0000-0000")))
+Description: A completely blank module that has no purpose but CFF demonstration.
+License: GPL-3
+Imports:
+    assertthat,
+    jsonlite,
+    utils,
+    crayon
+Suggests:
+    units,
+    testthat
+biocViews: 
+    rhdf5
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+URL: https://absolutely_not_real.com

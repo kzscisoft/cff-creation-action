@@ -1,0 +1,19 @@
+name: Metadata Parsers
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Requirements
+        run: |
+          sudo apt install -y dirmngr gnupg apt-transport-https ca-certificates software-properties-common
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+          sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+          sudo apt install -y rbase python3 python3-pip wget curl
+          R -e "install.packages('yaml',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          R -e "install.packages('desc',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          python3 -m pip install pyyaml toml mock pytest
+      - name: Run Tests
+        run: pytest -s

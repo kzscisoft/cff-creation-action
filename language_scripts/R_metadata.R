@@ -1,4 +1,4 @@
-#!/usr/bin/R
+#!/usr/bin/Rscript
 library(desc)
 library(yaml)
 library(optparse)
@@ -10,7 +10,7 @@ option_list <- list(
     make_option(c("-m", "--message"), type="character", default=DEFAULT_MSG, metavar="character"),
     make_option(c("-v", "--cff-version"), type="character", default="1.1.0", metavar="character"),
     make_option(c("-a", "--affiliation", type="character", default=NA, metavar="character")),
-    make_option(c("-d", "--doi", type="character", metavar="character", default=NA))
+    make_option(c("-d", "--doi", type="character", metavar="character", default=NA)),
     make_option(c("-r", "--repo-url", type="character", metavar="character", default=NA))
 )
 
@@ -63,8 +63,10 @@ if(!is.na(desc$get("URL")))
     cff_output$url = desc$get("URL")
 }
 
-if(!is.na(desc$get("Title")))
+if(!is.na(desc$get("Description")))
 {
+    cff_output$abstract = desc$get("Description")
+} else {
     cff_output$abstract = desc$get("Title")
 }
 

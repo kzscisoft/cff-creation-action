@@ -3,8 +3,10 @@ import os
 import toml
 import argparse
 import yaml
+import setuptools
+import mock
 import sys
-import types
+import re
 
 python_info_parser = argparse.ArgumentParser('PythonInfoParser')
 python_info_parser.add_argument('input_file')
@@ -22,7 +24,7 @@ output_cff_dat = {}
 
 if os.path.splitext(args.input_file)[1] == '.toml':
     toml_data = toml.load(args.input_file)
-    
+
     if 'flit' in toml_data['tool']:
         # Project metadata stored via Flit
         metadata = toml_data['tool']['flit']['metadata']
@@ -45,7 +47,7 @@ if os.path.splitext(args.input_file)[1] == '.toml':
             if args.affiliation:
                 authors[-1]['affiliation'] = args.affiliation
             output_cff_dat['authors'] = authors
-        
+
         if 'home-page' in metadata:
             output_cff_dat['url'] = metadata['home-page']
 
@@ -94,14 +96,12 @@ if os.path.splitext(args.input_file)[1] == '.toml':
         if 'keywords' in metadata and metadata['keywords']:
             output_cff_dat['keywords'] = metadata['keywords']
 else:
-    module_dict = {}
-    m = types.ModuleType('distutils.core')
-    m.setup = lambda **kwargs: module_dict.update(kwargs)
-    sys.modules['distutils.core'] = m
-
     sys.path.append(os.path.dirname(args.input_file))
+    with mock.patch.object(setuptools, 'setup') as mock_setup:
+        import setup
 
-    import setup
+    # called arguments are in `mock_setup.call_args`
+    _, module_dict = mock_setup.call_args
 
     output_cff_dat['title'] = module_dict['name']
     output_cff_dat['version'] = module_dict['version']

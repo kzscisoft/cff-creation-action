@@ -15,3 +15,9 @@ RUN python3 -m pip install pyyaml toml
 
 COPY language_scripts/license_rec.py /usr/bin/get-license
 RUN chmod +x /usr/bin/get-license
+COPY language_scripts/julia_metadata.py /usr/bin/julia_metadata
+RUN chmod +x /usr/bin/julia_metadata
+COPY language_scripts/python_metadata.py /usr/bin/python_metadata
+RUN chmod +x /usr/bin/python_metadata
+COPY language_scripts/R_metadata.R /usr/bin/R_metadata
+RUN chmod +x /usr/bin/R_metadata

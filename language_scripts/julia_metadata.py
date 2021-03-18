@@ -63,7 +63,7 @@ if author_strs:
         else:
             author = author_str.strip()
             if ' ' in author:
-            author = author.split(' ', -1)
+                author = author.split(' ', -1)
 
         if isinstance(author, list):
             authors.append(
