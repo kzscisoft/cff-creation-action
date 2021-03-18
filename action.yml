@@ -40,10 +40,10 @@ runs:
   image: 'Dockerfile'
   args:
     - '--doi ${{inputs.doi}}'
-    - '--title ${{input.title}}'
-    - '--message ${{input.message}}'
-    - '--authors ${{input.authors}}'
-    - '--affilition ${{input.affiliation}}'
+    - '--title ${{inputs.title}}'
+    - '--message ${{inputs.message}}'
+    - '--authors ${{inputs.authors}}'
+    - '--affiliation ${{inputs.affiliation}}'
 branding:
   icon: 'book-open'
   color: 'green'
