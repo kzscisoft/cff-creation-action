@@ -23,3 +23,7 @@ jobs:
           python -m pip install pyyaml toml mock pytest
       - name: Run Tests
         run: pytest -s
+      - uses: kzscisoft/cff-creation-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          project-path: tests
