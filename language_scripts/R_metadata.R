@@ -9,7 +9,9 @@ option_list <- list(
     make_option(c("-i", "--input-file"), type="character", default="DESCRIPTION", metavar="character"),
     make_option(c("-m", "--message"), type="character", default=DEFAULT_MSG, metavar="character"),
     make_option(c("-v", "--cff-version"), type="character", default="1.1.0", metavar="character"),
-    make_option(c("-a", "--affiliation", type="character", default=NA, metavar="character"))
+    make_option(c("-a", "--affiliation", type="character", default=NA, metavar="character")),
+    make_option(c("-d", "--doi", type="character", metavar="character", default=NA))
+    make_option(c("-r", "--repo-url", type="character", metavar="character", default=NA))
 )
 
 parser <- OptionParser(option_list=option_list)
@@ -27,10 +29,11 @@ for(i in 1:length(desc$get_authors()))
 
 cff_output <- list(
     version = desc$get("Version"),
-    title = desc$get("Title"),
+    title = desc$get("Package"),
     license = desc$get("License"),
     `cff-version` = opt$`cff-version`,
-    message = opt$message
+    message = opt$message,
+    `date-released` = format(Sys.time(), "%Y-%m-%d")
 )
 
 if(length(authors_list) > 0)
@@ -45,9 +48,24 @@ if(length(authors_list) > 0)
     cff_output$authors = authors_list
 }
 
+if(length(opt$doi) > 0)
+{
+    cff_output$doi = opt$doi
+}
+
+if(length(opt$`remote-url`) > 0)
+{
+    cff_output$`repository-code` = opt$`remote-url`
+}
+
 if(!is.na(desc$get("URL")))
 {
     cff_output$url = desc$get("URL")
+}
+
+if(!is.na(desc$get("Title")))
+{
+    cff_output$abstract = desc$get("Title")
 }
 
 write_yaml(cff_output, 'CITATION.cff')

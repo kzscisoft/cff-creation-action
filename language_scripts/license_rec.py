@@ -35,7 +35,7 @@ for i, _ in enumerate(license_lines):
                 print(license)
                 exit()
             if license == 'BSD':
-                version = f'{license} {version[0]} Clause'
+                version = f'{license}-{version[0]}-Clause'
                 break
             elif '.' not in version[0]:
                 version[0] += '.0'
