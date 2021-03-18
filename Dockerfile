@@ -6,7 +6,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 RUN add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
 RUN apt install -y r-base
 RUN apt install -y python3 python3-pip
-RUN apt install -y wget curl
+RUN apt install -y wget curl git
 
 RUN R -e "install.packages('yaml',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('desc',dependencies=TRUE, repos='http://cran.rstudio.com/')"
@@ -21,3 +21,8 @@ COPY language_scripts/python_metadata.py /usr/bin/python_metadata
 RUN chmod +x /usr/bin/python_metadata
 COPY language_scripts/R_metadata.R /usr/bin/R_metadata
 RUN chmod +x /usr/bin/R_metadata
+COPY make_cff_file.py /usr/bin/gen-cff
+RUN chmod +x /usr/bin/gen-cff
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]

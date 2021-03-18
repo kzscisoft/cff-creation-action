@@ -1,0 +1,49 @@
+name: Citation File Generator
+author: Kristian Zarebski
+description: Generates a Citation File Format file containing metadata for a code repository for various languages
+inputs:
+  doi:
+    description: digital object identifier
+    required: false
+    default: ''
+  title:
+    description: override project title
+    required: false
+    default: ''
+  message:
+    description: message to be displayed
+    required: false
+    default:  If you use this software, please cite it using these metadata.
+  affilitation:
+    description: affilitation to be attached to authors
+    required: false
+    default: ''
+  project-path:
+    description: path of module if not the root
+    required: false
+    default: ''
+  authors:
+    description: comma separated author list
+    required: false
+    default: ''
+  github-token:
+    description: token to allow pushing to GitHub
+    required: true
+  branch:
+    description: branch to push to
+    required: false
+  repository:
+    description: alternative repository to push to
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '--doi ${{inputs.doi}}'
+    - '--title ${{input.title}}'
+    - '--message ${{input.message}}'
+    - '--authors ${{input.authors}}'
+    - '--affilition ${{input.affiliation}}'
+branding:
+  icon: 'book-open'
+  color: 'green'
