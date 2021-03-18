@@ -2,6 +2,9 @@
 import os
 import toml
 import argparse
+import yaml
+import sys
+import types
 
 python_info_parser = argparse.ArgumentParser('PythonInfoParser')
 python_info_parser.add_argument('input_file')
@@ -91,8 +94,6 @@ if os.path.splitext(args.input_file)[1] == '.toml':
         if 'keywords' in metadata and metadata['keywords']:
             output_cff_dat['keywords'] = metadata['keywords']
 else:
-    import sys
-    import types
     module_dict = {}
     m = types.ModuleType('distutils.core')
     m.setup = lambda **kwargs: module_dict.update(kwargs)
@@ -105,8 +106,8 @@ else:
     output_cff_dat['title'] = module_dict['name']
     output_cff_dat['version'] = module_dict['version']
     
-    if 'author' in metadata:
-        author = metadata['author'].strip()
+    if 'author' in module_dict:
+        author = module_dict['author'].strip()
         if ' ' in author:
             author = author.split(' ', -1)
         if isinstance(author, list):
@@ -122,17 +123,20 @@ else:
             authors[-1]['affiliation'] = args.affiliation
         output_cff_dat['authors'] = authors
     
-    if 'url' in metadata:
-        output_cff_dat['url'] = metadata['url']
+    if 'url' in module_dict:
+        output_cff_dat['url'] = module_dict['url']
 
-    if 'description' in metadata:
-        output_cff_dat['abstract'] = metadata['description']
+    if 'description' in module_dict:
+        output_cff_dat['abstract'] = module_dict['description']
 
-    if 'keywords' in metadata:
-        output_cff_dat['keywords'] = metadata['keywords']
+    if 'keywords' in module_dict:
+        output_cff_dat['keywords'] = module_dict['keywords']
 
 if args.doi:
     output_cff_dat['doi'] = args.doi
 
 if args.repo_url:
     output_cff_dat['repository-code'] = args.repo_url
+
+with open('CITATION.cff', 'w') as f:
+    yaml.dump(output_cff_dat, f)
