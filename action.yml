@@ -18,7 +18,7 @@ inputs:
     description: affilitation to be attached to authors
     required: false
     default: ''
-  project-path:
+  project_path:
     description: path of module if not the root
     required: false
     default: ''
@@ -26,7 +26,7 @@ inputs:
     description: comma separated author list
     required: false
     default: ''
-  github-token:
+  github_token:
     description: token to allow pushing to GitHub
     required: true
   branch:
@@ -38,12 +38,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - '--doi ${{inputs.doi}}'
-    - '--title ${{inputs.title}}'
-    - '--message ${{inputs.message}}'
-    - '--authors ${{inputs.authors}}'
-    - '--affiliation ${{inputs.affiliation}}'
 branding:
   icon: 'book-open'
   color: 'green'

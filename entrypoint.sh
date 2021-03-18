@@ -1,10 +1,17 @@
 #!/usr/bin/bash
 
+if [ -z ${INPUT_REPOSITORY} ]
+then
+    INPUT_REPOSITORY=${GITHUB_REPOSITORY}
+fi
+
 REMOTE_URL="https://github.com/${GITHUB_REPOSITORY}"
-COMMIT_URL="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
+COMMIT_URL="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${INPUT_REPOSITORY}.git"
 
 git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git config --global user.name "github-actions[bot]"
+
+ARGUMENTS="--repo-url ${REMOTE_URL}"
 
 if [ -z ${INPUT_BRANCH} ]
 then
@@ -17,7 +24,34 @@ then
     exit 1
 fi
 
-gen-cff --repo-url ${REMOTE_URL} $@
+if [ -z ${INPUT_DOI} ]
+then
+    ARGUMENTS="${ARGUMENTS} --doi ${INPUT_DOI}"
+fi
+
+if [ -z ${INPUT_TITLE} ]
+then
+    ARGUMENTS="${ARGUMENTS} --title ${INPUT_TITLE}"
+fi
+
+if [ -z ${INPUT_MESSAGE} ]
+then
+    ARGUMENTS="${ARGUMENTS} --message ${INPUT_MESSAGE}"
+fi
+
+if [ -z ${INPUT_AUTHORS} ]
+then
+    ARGUMENTS="${ARGUMENTS} --authors ${INPUT_AUTHORS}"
+fi
+
+if [ -z ${INPUT_AFFILIATION} ]
+then
+    ARGUMENTS="${ARGUMENTS} --affiliation ${INPUT_AFFILIATION}"
+fi
+
+echo "Running command: gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}"
+
+gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}
 
 if [ -f "CITATION.cff" ]
 then
