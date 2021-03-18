@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-if [ -z ${INPUT_REPOSITORY} ]
+if [ -n ${INPUT_REPOSITORY} ]
 then
     INPUT_REPOSITORY=${GITHUB_REPOSITORY}
 fi
@@ -13,38 +13,38 @@ git config --global user.name "github-actions[bot]"
 
 ARGUMENTS="--repo-url ${REMOTE_URL}"
 
-if [ -z ${INPUT_BRANCH} ]
+if [ -n "${INPUT_BRANCH}" ]
 then
     INPUT_BRANCH=${GITHUB_REF}
 fi
 
-if [ -z ${INPUT_GITHUB_TOKEN} ]
+if [ ! -n "${INPUT_GITHUB_TOKEN}" ]
 then
     echo 'No GitHub Token given, you can use "${{ secrets.GITHUB_TOKEN }}".'
     exit 1
 fi
 
-if [ -z ${INPUT_DOI} ]
+if [ -n "${INPUT_DOI}" ]
 then
     ARGUMENTS="${ARGUMENTS} --doi ${INPUT_DOI}"
 fi
 
-if [ -z ${INPUT_TITLE} ]
+if [ -n "${INPUT_TITLE}" ]
 then
     ARGUMENTS="${ARGUMENTS} --title ${INPUT_TITLE}"
 fi
 
-if [ -z ${INPUT_MESSAGE} ]
+if [ -n "${INPUT_MESSAGE}" ]
 then
     ARGUMENTS="${ARGUMENTS} --message ${INPUT_MESSAGE}"
 fi
 
-if [ -z ${INPUT_AUTHORS} ]
+if [ -n "${INPUT_AUTHORS}" ]
 then
     ARGUMENTS="${ARGUMENTS} --authors ${INPUT_AUTHORS}"
 fi
 
-if [ -z ${INPUT_AFFILIATION} ]
+if [ -n "${INPUT_AFFILIATION}" ]
 then
     ARGUMENTS="${ARGUMENTS} --affiliation ${INPUT_AFFILIATION}"
 fi
@@ -53,7 +53,7 @@ echo "Running command: gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}"
 
 gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}
 
-if [ -f "CITATION.cff" ]
+if [ ! -f "CITATION.cff" ]
 then
     echo "Failed to create CITATION.cff file."
     exit 1
