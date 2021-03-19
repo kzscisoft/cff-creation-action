@@ -41,7 +41,6 @@ else:
         files = SEARCH[lang]['files']
         if any(os.path.exists(i) for i in files):
             language = lang
-            script = SEARCH[lang]['script']
             break
 
 if not os.path.exists(args.input_directory):
@@ -49,8 +48,10 @@ if not os.path.exists(args.input_directory):
         f"Could not find directory '{args.input_directory}'"
     )
 
-if not language:
+if not language or language not in SEARCH:
     raise RuntimeError("Could not identify source language")
+
+script = SEARCH[language]['script']
 
 cmd_ = [
     script,
