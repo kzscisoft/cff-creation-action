@@ -35,7 +35,7 @@ language = None
 script = None
 
 if args.language:
-    language = args.language
+    language = args.language.lower()
 else:
     for lang in SEARCH:
         files = SEARCH[lang]['files']
@@ -43,6 +43,11 @@ else:
             language = lang
             script = SEARCH[lang]['script']
             break
+
+if not os.path.exists(args.input_directory):
+    raise FileNotFoundError(
+        f"Could not find directory '{args.input_directory}'"
+    )
 
 if not language:
     raise RuntimeError("Could not identify source language")
