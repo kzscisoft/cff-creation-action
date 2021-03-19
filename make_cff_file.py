@@ -65,10 +65,14 @@ if not language or language not in SEARCH:
 
 script = SEARCH[language]['script']
 
+if language == "r":
+    input_loc = f"-i {os.path.join(args.input_directory, 'DESCRIPTION')}"
+else:
+    input_loc = args.input_directory
 
 cmd_ = [
     script,
-    args.input_directory,
+    input_loc,
     f'--title "{args.title}"',
     f'--message "{args.message}"',
     f'--authors "{args.authors}"',
