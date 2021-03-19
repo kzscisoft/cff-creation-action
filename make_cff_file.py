@@ -49,7 +49,7 @@ if not os.path.exists(args.input_directory):
     )
 
 if not language or language not in SEARCH:
-    raise RuntimeError("Could not identify source language")
+    raise RuntimeError(f"Could not identify source language '{language}'")
 
 script = SEARCH[language]['script']
 
