@@ -31,6 +31,7 @@ repo_parser.add_argument('--repo-url', default=None)
 repo_parser.add_argument('--language', default=None)
 
 args = repo_parser.parse_args()
+
 language = None
 script = None
 
@@ -52,6 +53,18 @@ if not language or language not in SEARCH:
     raise RuntimeError(f"Could not identify source language '{language}'")
 
 script = SEARCH[language]['script']
+
+# Some tidy up from the bash
+for arg in ['title', 'message', 'language', 'authors', 'affiliation', 'doi', 'repo_url']:
+    _arg = getattr(args, arg)
+    if not isinstance(_arg, str):
+        continue
+    if _arg[0] == "'":
+        _arg = _arg[1:]
+    if _arg[-1] == "'":
+        _arg = _arg[:-1]
+    setattr(args, arg, _arg)
+
 
 cmd_ = [
     script,
