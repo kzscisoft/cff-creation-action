@@ -35,6 +35,9 @@ inputs:
   repository:
     description: alternative repository to push to
     required: false
+  language:
+    description: explicitly state the source language
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

@@ -44,6 +44,11 @@ then
     ARGUMENTS+=("--authors='${INPUT_AUTHORS}'")
 fi
 
+if [ -n "${INPUT_LANGUAGE}" ]
+then
+    ARGUMENTS+=("--language='${INPUT_LANGUAGE}'")
+fi
+
 if [ -n "${INPUT_AFFILIATION}" ]
 then
     ARGUMENTS+=("--affiliation='${INPUT_AFFILIATION}'")
