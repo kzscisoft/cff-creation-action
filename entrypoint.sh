@@ -54,8 +54,6 @@ then
     ARGUMENTS+=("--affiliation='${INPUT_AFFILIATION}'")
 fi
 
-echo "Running command: gen-cff ${INPUT_PROJECT_PATH} ${ARGUMENTS}"
-
 gen-cff ${INPUT_PROJECT_PATH} "${ARGUMENTS[@]}"
 
 if [ ! -f "CITATION.cff" ]

@@ -81,5 +81,7 @@ cmd_ = [
     f'--repo-url "{args.repo_url}"'
 ]
 
+print("Running the Command: "+' '.join(_cmd))
+
 run_ = subprocess.Popen(cmd_, shell=False)
 run_.wait()
