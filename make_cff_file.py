@@ -66,19 +66,19 @@ if not language or language not in SEARCH:
 script = SEARCH[language]['script']
 
 if language == "r":
-    input_loc = f"--input-file \"{os.path.join(args.input_directory, 'DESCRIPTION')}\""
+    input_loc = f'--input-file="{os.path.join(args.input_directory, 'DESCRIPTION')}"'
 else:
     input_loc = args.input_directory
 
 cmd_ = [
     script,
     input_loc,
-    f'--title "{args.title}"',
-    f'--message "{args.message}"',
-    f'--authors "{args.authors}"',
-    f'--affiliation "{args.affiliation}"',
-    f'--doi "{args.doi}"',
-    f'--repo-url "{args.repo_url}"'
+    f'--title="{args.title}"',
+    f'--message="{args.message}"',
+    f'--authors="{args.authors}"',
+    f'--affiliation="{args.affiliation}"',
+    f'--doi="{args.doi}"',
+    f'--repo-url="{args.repo_url}"'
 ]
 
 print("Running the Command: "+' '.join(cmd_))
