@@ -16,7 +16,7 @@ option_list <- list(
     make_option(c("-a", "--authors", type="character", metavar="character", default=NA))
 )
 
-parser <- OptionParser(option_list=option_list)
+parser <- OptionParser(option_list=option_list, add_help_option=FALSE)
 opt <- parse_args(parser)
 
 desc <- description$new(opt$`input-file`)
