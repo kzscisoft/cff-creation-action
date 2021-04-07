@@ -13,7 +13,7 @@ option_list <- list(
     make_option(c("-a", "--affiliation", type="character", default=NA, metavar="character")),
     make_option(c("-d", "--doi", type="character", metavar="character", default=NA)),
     make_option(c("-r", "--repo-url", type="character", metavar="character", default=NA)),
-    make_option(c("-a", "--authors", type="character", metavar="character", default=NA))
+    make_option(c("-w", "--authors", type="character", metavar="character", default=NA))
 )
 
 parser <- OptionParser(option_list=option_list, add_help_option=FALSE)
