@@ -7,6 +7,7 @@ DEFAULT_MSG <- "If you use this software, please cite it using these metadata."
 
 option_list <- list(
     make_option(c("-i", "--input-file"), type="character", default="DESCRIPTION", metavar="character"),
+    make_option(c("-t", "--title"), type="character", default="DESCRIPTION", metavar="character"),
     make_option(c("-m", "--message"), type="character", default=DEFAULT_MSG, metavar="character"),
     make_option(c("-v", "--cff-version"), type="character", default="1.1.0", metavar="character"),
     make_option(c("-a", "--affiliation", type="character", default=NA, metavar="character")),
@@ -51,6 +52,11 @@ if(length(authors_list) > 0)
 if(length(opt$doi) > 0)
 {
     cff_output$doi = opt$doi
+}
+
+if(length(opt$title) > 0)
+{
+    cff_output$title = opt$title
 }
 
 if(length(opt$`remote-url`) > 0)

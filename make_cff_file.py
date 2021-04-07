@@ -72,14 +72,12 @@ else:
 
 cmd_ = [
     script,
-    input_loc,
-    f'--title="{args.title}"',
-    f'--message="{args.message}"',
-    f'--authors="{args.authors}"',
-    f'--affiliation="{args.affiliation}"',
-    f'--doi="{args.doi}"',
-    f'--repo-url="{args.repo_url}"'
+    input_loc
 ]
+
+for arg in ['title', 'message', 'authors', 'affiliation', 'doi', 'repo_url']:
+    if arg:
+        cmd_ += [f'--{arg}="{getattr(args, arg.replace("-", "_"))}"']
 
 print("Running the Command: "+' '.join(cmd_))
 
