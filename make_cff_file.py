@@ -76,8 +76,8 @@ cmd_ = [
 ]
 
 for arg in ['title', 'message', 'authors', 'affiliation', 'doi', 'repo_url']:
-    if arg:
-        cmd_ += [f'--{arg}="{getattr(args, arg.replace("-", "_"))}"']
+    if getattr(args, arg):
+        cmd_ += [f'--{arg.replace("_", "-")}="{getattr(args, arg)}"']
 
 print("Running the Command: "+' '.join(cmd_))
 
