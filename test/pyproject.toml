@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "demo_repo"
+name = "demo_repo_pytoml"
 version = "1.0.0"
 description = "Demonstration repository"
 authors = ["Jane Doe <jane.doe@nowhere.com>", "John Smith"]

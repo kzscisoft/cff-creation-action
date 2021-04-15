@@ -13,6 +13,8 @@ git config --global user.name "github-actions[bot]"
 
 ARGUMENTS=("--repo-url='${REMOTE_URL}'")
 
+INPUT_FORCE=${INPUT_FORCE:-false}
+
 if [ ! -n "${INPUT_BRANCH}" ]
 then
     INPUT_BRANCH=${GITHUB_REF}
@@ -62,6 +64,18 @@ then
     exit 1
 fi
 
-git add -f CITATION.cff
+FORCE_OPTION=''
+
+if ${INPUT_FORCE}; then
+    FORCE_OPTION='--force'
+fi
+
+if [ -n "${INPUT_PREFIX}"]; then
+    mv CITATION.cff ${INPUT_PREFIX}_CITATION.cff
+    git add -f ${INPUT_PREFIX}_CITATION.cff
+else
+    git add -f CITATION.cff
+fi
+
 git commit -m "CITATION File Generated - $(date)"
-git push "${COMMIT_URL}" HEAD:${INPUT_BRANCH}
+git push "${COMMIT_URL}" HEAD:${INPUT_BRANCH} ${FORCE_OPTION}

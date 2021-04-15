@@ -9,7 +9,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "an_example_pypi_project",
+    name = "test_repo_pysetup",
     version = "0.0.4",
     author = "Andrew Carter",
     author_email = "andrewjcarter@gmail.com",

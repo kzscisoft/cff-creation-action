@@ -1,4 +1,4 @@
-name = "TestRepository"
+name = "TestRepositoryJulia"
 uuid = "xxxx-00000"
 authors = ["Repository for testing CFF generation"]
 version = "1.0.0"
