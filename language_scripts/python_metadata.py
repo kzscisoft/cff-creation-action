@@ -95,7 +95,7 @@ if os.path.splitext(args.input_file)[1] == '.toml':
 else:
     from distutils.core import run_setup
 
-    metadata = run_setup(os.path.join(args.input_file, 'setup.py'), stop_after='init')
+    metadata = run_setup(args.input_file, stop_after='init')
 
     output_cff_dat['title'] = metadata.get_name()
     output_cff_dat['version'] = metadata.get_version()
