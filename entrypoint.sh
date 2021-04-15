@@ -13,7 +13,7 @@ git config --global user.name "github-actions[bot]"
 
 ARGUMENTS=("--repo-url='${REMOTE_URL}'")
 
-if [ -n "${INPUT_BRANCH}" ]
+if [ ! -n "${INPUT_BRANCH}" ]
 then
     INPUT_BRANCH=${GITHUB_REF}
 fi
