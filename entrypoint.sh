@@ -62,6 +62,6 @@ then
     exit 1
 fi
 
-git add CITATION.cff
+git add -f CITATION.cff
 git commit -m "CITATION File Generated - $(date)"
 git push "${COMMIT_URL}" HEAD:${INPUT_BRANCH}
