@@ -69,11 +69,11 @@ if language == "r":
     input_loc = f'--input-file="{os.path.join(args.input_directory, "DESCRIPTION")}"'
 elif language == "python":
     if os.path.exists(os.path.join(args.input_directory, "setup.py")):
-        input_loc = f'--input-file="{os.path.join(args.input_directory, "setup.py")}"'
+        input_loc = os.path.join(args.input_directory, "setup.py")
     else:
-        input_loc = f'--input-file="{os.path.join(args.input_directory, "pyproject.toml")}"'
+        input_loc = os.path.join(args.input_directory, "pyproject.toml")
 elif language == "julia":
-    input_loc = f'--input-file="{os.path.join(args.input_directory, "Project.toml")}"'
+    input_loc = os.path.join(args.input_directory, "Project.toml")
 else:
     input_loc = args.input_directory
 
