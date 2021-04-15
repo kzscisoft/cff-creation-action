@@ -6,8 +6,6 @@ import re
 import yaml
 import time
 
-DEFAULT_MSG = 'If you use this software, please cite it using these metadata.'
-
 julia_info_parser = argparse.ArgumentParser('JuliaInfoParser')
 julia_info_parser.add_argument('project_toml')
 julia_info_parser.add_argument('--cff-version', default='1.1.0')
@@ -37,7 +35,7 @@ if not args.title or not args.version:
     output_cff_dat['version'] = metadata['version']
     output_cff_dat['title'] = metadata['name']
 
-    if 'authors' in output_cff_dat:
+    if 'authors' in metadata:
         author_strs = metadata['authors']
 
     if 'uuid' in metadata:
@@ -47,6 +45,8 @@ if not args.title or not args.version:
                 'value': metadata['uuid']
             }
         ]
+else:
+    output_cff_dat['title'] = args.title
 
 if args.authors:
     author_strs = args.authors.split(',')
@@ -85,9 +85,19 @@ if args.repo_url:
     output_cff_dat['repository-code'] = args.repo_url
 
 output_cff_dat['date-released'] = time.strftime('%Y-%m-%d', current_time)
-output_cff_dat['message'] = args.message if args.message else DEFAULT_MSG
+output_cff_dat['message'] = args.message
 output_cff_dat['cff-version'] = args.cff_version
-output_cff_dat['title']
+
+
+# Get rid of extra quotes
+for key in output_cff_dat:
+    _val = output_cff_dat[key]
+    
+    while _val[0] in ["'", '"']:
+        _val = _val[1:]
+    
+    while _val[-1] in ["'", '"']:
+        _val = _val[:-1]
 
 with open('CITATION.cff', 'w') as f:
     yaml.dump(output_cff_dat, f)

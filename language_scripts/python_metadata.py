@@ -135,5 +135,15 @@ if args.doi:
 if args.repo_url:
     output_cff_dat['repository-code'] = args.repo_url
 
+# Get rid of extra quotes
+for key in output_cff_dat:
+    _val = output_cff_dat[key]
+
+    while _val[0] in ["'", '"']:
+        _val = _val[1:]
+
+    while _val[-1] in ["'", '"']:
+        _val = _val[:-1]
+
 with open('CITATION.cff', 'w') as f:
     yaml.dump(output_cff_dat, f)

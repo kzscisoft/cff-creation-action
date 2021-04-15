@@ -70,7 +70,7 @@ if ${INPUT_FORCE}; then
     FORCE_OPTION='--force'
 fi
 
-if [ -n "${INPUT_PREFIX}"]; then
+if [ -n "${INPUT_PREFIX}" ]; then
     mv CITATION.cff ${INPUT_PREFIX}_CITATION.cff
     git add -f ${INPUT_PREFIX}_CITATION.cff
 else

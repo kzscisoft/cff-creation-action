@@ -14,7 +14,7 @@ inputs:
     description: message to be displayed
     required: false
     default:  If you use this software, please cite it using these metadata.
-  affilitation:
+  affiliation:
     description: affilitation to be attached to authors
     required: false
     default: ''
