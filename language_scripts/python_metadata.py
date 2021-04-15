@@ -3,9 +3,6 @@ import os
 import toml
 import argparse
 import yaml
-import setuptools
-import unittest.mock
-import sys
 import re
 
 python_info_parser = argparse.ArgumentParser('PythonInfoParser')
@@ -92,22 +89,19 @@ if os.path.splitext(args.input_file)[1] == '.toml':
 
         if 'license' in metadata:
             output_cff_dat['license'] = metadata['license']
-  
+
         if 'keywords' in metadata and metadata['keywords']:
             output_cff_dat['keywords'] = metadata['keywords']
 else:
-    sys.path.append(os.path.dirname(args.input_file))
-    with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
-        import setup
+    from distutils.core import run_setup
 
-    # called arguments are in `mock_setup.call_args`
-    _, module_dict = mock_setup.call_args
+    metadata = run_setup(args.input_file, stop_after='init')
 
-    output_cff_dat['title'] = module_dict['name']
-    output_cff_dat['version'] = module_dict['version']
+    output_cff_dat['title'] = metadata.get_name()
+    output_cff_dat['version'] = metadata.get_version()
 
-    if 'author' in module_dict:
-        author = module_dict['author'].strip()
+    if metadata.get_author():
+        author = metadata.get_author()
         if ' ' in author:
             author = author.split(' ', -1)
         if isinstance(author, list):
@@ -123,14 +117,14 @@ else:
             authors[-1]['affiliation'] = args.affiliation
         output_cff_dat['authors'] = authors
 
-    if 'url' in module_dict:
-        output_cff_dat['url'] = module_dict['url']
+    if metadata.get_url():
+        output_cff_dat['url'] = metadata.get_url()
 
-    if 'description' in module_dict:
-        output_cff_dat['abstract'] = module_dict['description']
+    if metadata.get_description():
+        output_cff_dat['abstract'] = metadata.get_description()
 
-    if 'keywords' in module_dict:
-        output_cff_dat['keywords'] = module_dict['keywords']
+    if metadata.get_keywords():
+        output_cff_dat['keywords'] = metadata.get_keywords()
 
 if args.doi:
     output_cff_dat['doi'] = args.doi
