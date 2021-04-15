@@ -37,6 +37,7 @@ if not args.title or not args.version:
 
     if 'authors' in metadata:
         author_strs = metadata['authors']
+        authors = []
 
     if 'uuid' in metadata:
         output_cff_dat['identifiers'] = [
@@ -92,10 +93,10 @@ output_cff_dat['cff-version'] = args.cff_version
 # Get rid of extra quotes
 for key in output_cff_dat:
     _val = output_cff_dat[key]
-    
+
     while _val[0] in ["'", '"']:
         _val = _val[1:]
-    
+
     while _val[-1] in ["'", '"']:
         _val = _val[:-1]
 
