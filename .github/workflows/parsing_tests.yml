@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@v1
-        with:
-          r-version: '4.0.4'
+      # - uses: r-lib/actions/setup-r@v1
+      #   with:
+      #     r-version: '4.0.4'
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
@@ -17,30 +17,30 @@ jobs:
         run: |
           sudo apt install -y dirmngr gnupg apt-transport-https ca-certificates software-properties-common
           sudo apt install -y wget curl
-          R -e "install.packages('yaml',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-          R -e "install.packages('desc',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-          R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          # R -e "install.packages('yaml',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          # R -e "install.packages('desc',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+          # R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
           python -m pip install pyyaml toml mock pytest
       - name: Run Tests
         run: pytest -s
       - name: Test Action on Python
-        uses: kzscisoft/cff-creation-action@v1
+        uses: kzscisoft/cff-creation-action@v0.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           project_path: test
           branch: testing
           language: python
       - name: Test Action on Julia
-        uses: kzscisoft/cff-creation-action@v1
+        uses: kzscisoft/cff-creation-action@v0.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           project_path: test
           branch: testing
           language: Julia
-      - name: Test Action on R
-        uses: kzscisoft/cff-creation-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          project_path: test
-          branch: testing
-          language: R
+      # - name: Test Action on R
+      #   uses: kzscisoft/cff-creation-action@v0.1.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     project_path: test
+      #     branch: testing
+      #     language: R

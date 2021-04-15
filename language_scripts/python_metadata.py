@@ -4,7 +4,7 @@ import toml
 import argparse
 import yaml
 import setuptools
-import mock
+import unittest.mock
 import sys
 import re
 
@@ -92,12 +92,12 @@ if os.path.splitext(args.input_file)[1] == '.toml':
 
         if 'license' in metadata:
             output_cff_dat['license'] = metadata['license']
-        
+  
         if 'keywords' in metadata and metadata['keywords']:
             output_cff_dat['keywords'] = metadata['keywords']
 else:
     sys.path.append(os.path.dirname(args.input_file))
-    with mock.patch.object(setuptools, 'setup') as mock_setup:
+    with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
         import setup
 
     # called arguments are in `mock_setup.call_args`
@@ -105,7 +105,7 @@ else:
 
     output_cff_dat['title'] = module_dict['name']
     output_cff_dat['version'] = module_dict['version']
-    
+
     if 'author' in module_dict:
         author = module_dict['author'].strip()
         if ' ' in author:
@@ -122,7 +122,7 @@ else:
         if args.affiliation:
             authors[-1]['affiliation'] = args.affiliation
         output_cff_dat['authors'] = authors
-    
+
     if 'url' in module_dict:
         output_cff_dat['url'] = module_dict['url']
 
