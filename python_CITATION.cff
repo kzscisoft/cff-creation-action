@@ -1,0 +1,13 @@
+abstract: An demonstration of how to create, document, and publish to the cheese shop
+  a5 pypi.org.
+authors:
+- family-names: Carter
+  given-names:
+  - Andrew
+keywords:
+- example documentation tutorial
+license: BSD
+repository-code: '"https://github.com/kzscisoft/cff-creation-action"'
+title: test_repo_pysetup
+url: http://packages.python.org/an_example_pypi_project
+version: 0.0.4
