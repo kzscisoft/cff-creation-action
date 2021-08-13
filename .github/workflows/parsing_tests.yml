@@ -26,7 +26,7 @@ jobs:
       - name: Run Tests
         run: pytest -s
       - name: Test Action on Python
-        uses: kzscisoft/cff-creation-action@v0.1.0
+        uses: kzscisoft/cff-creation-action@testing
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           project_path: test
@@ -35,7 +35,7 @@ jobs:
           force: true
           prefix: python
       - name: Test Action on Julia
-        uses: kzscisoft/cff-creation-action@v0.1.0
+        uses: kzscisoft/cff-creation-action@testing
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           project_path: test
@@ -44,7 +44,7 @@ jobs:
           prefix: julia
           force: true
       - name: Test Action on R
-        uses: kzscisoft/cff-creation-action@v0.1.0
+        uses: kzscisoft/cff-creation-action@testing
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           project_path: test
